@@ -9,6 +9,8 @@ These steps are currently working for Ubuntu 18.04. Other OS Support coming late
 3. run `./config.sh` # this setups the configuration and runs the node as a service on your Ubuntu system
    1. This script will ask if you're wanting to be a `validator` or `full node`. Answer occurdingly. 
    2. This script enables and starts your validator/node! Check the sections belows
+4. **Validator Step Only!** Update the `aura.json` & `gran.json` files with your `mnemonic phrase` key and `public key`
+   1. Run `./insert-keys.sh`. Note: node must be running!
 
 # Notes
 * allow port `30333` through your firewall. This is the default p2p port for node comms
