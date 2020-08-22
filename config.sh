@@ -20,7 +20,7 @@ Description=ShiftNRG Validator
 WorkingDirectory='$REPO_DIR'
 CHAINJSON='$CHAIN_SPEC'
 
-ExecStart=$REPO_DIR/target/release/node-template --base-path '$CHAIN_DIR' --chain='$CHAIN_SPEC' --port 30333 --ws-port 9944 --rpc-port 9933 --validator --rpc-methods=Unsafe --name "'$NODE_NAME'" --rpc-cors all
+ExecStart='$REPO_DIR'/target/release/node-template --base-path '$CHAIN_DIR' --chain='$CHAIN_SPEC' --port 30333 --ws-port 9944 --rpc-port 9933 --validator --rpc-methods=Unsafe --name "'$NODE_NAME'" --rpc-cors all
 Restart=always
 RestartSec=120
 
@@ -38,7 +38,7 @@ Description=ShiftNRG Node
 WorkingDirectory='$REPO_DIR'
 CHAINJSON='$CHAIN_SPEC'
 
-ExecStart=$REPO_DIR/target/release/node-template --base-path '$CHAIN_DIR' --chain='$CHAIN_SPEC' --port 30333 --ws-port 9944 --rpc-port 9933  --name "'$NODE_NAME'"
+ExecStart='$REPO_DIR'/target/release/node-template --base-path '$CHAIN_DIR' --chain='$CHAIN_SPEC' --port 30333 --ws-port 9944 --rpc-port 9933  --name "'$NODE_NAME'"
 Restart=always
 RestartSec=120
 
