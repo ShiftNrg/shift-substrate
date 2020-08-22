@@ -3,7 +3,7 @@
 source ./scripts/color.sh
 
 ### CONFIGURATION ###
-NODE_NAME="SHIFT-TN-02"
+NODE_NAME="YOUR NODE NAME"
 TESTNET="testnet.json"
 
 REPO_DIR="/home/$USER/shift-substrate"

@@ -5,7 +5,8 @@ ShiftNRG's Substrate blockchain source code
 These steps are currently working for Ubuntu 18.04. Other OS Support coming later.
 
 1. run `./install.sh` # this will take up to 15-30 minutes pending your system's specs
-2. run `./config.sh` # this setups the configuration and runs the node as a service on your Ubuntu system
+2. `nano ./config.sh` # Update `NODE_NAME` (Line 6) to your liking 
+3. run `./config.sh` # this setups the configuration and runs the node as a service on your Ubuntu system
    1. This script will ask if you're wanting to be a `validator` or `full node`. Answer occurdingly. 
    2. This script enables and starts your validator/node! Check the sections belows
 
