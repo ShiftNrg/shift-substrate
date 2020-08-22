@@ -9,6 +9,7 @@ TESTNET="testnet.json"
 REPO_DIR="/home/$USER/shift-substrate"
 CHAIN_DIR="$REPO_DIR/chain"
 CHAIN_SPEC="$REPO_DIR/chain-spec/$TESTNET"
+NODE_TEMPLATE="$REPO_DIR/substrate-node/target/release/node-template"
 
 ### FUNCTIONS ###
 createValidatorDaemonService() {
@@ -18,9 +19,8 @@ Description=ShiftNRG Validator
 
 [Service]
 WorkingDirectory='$REPO_DIR'
-CHAINJSON='$CHAIN_SPEC'
 
-ExecStart='$REPO_DIR'/target/release/node-template --base-path '$CHAIN_DIR' --chain='$CHAIN_SPEC' --port 30333 --ws-port 9944 --rpc-port 9933 --validator --rpc-methods=Unsafe --name "'$NODE_NAME'" --rpc-cors all
+ExecStart='$NODE_TEMPLATE' --base-path '$CHAIN_DIR' --chain='$CHAIN_SPEC' --port 30333 --ws-port 9944 --rpc-port 9933 --validator --rpc-methods=Unsafe --name "'$NODE_NAME'" --rpc-cors all
 Restart=always
 RestartSec=120
 
@@ -36,9 +36,8 @@ Description=ShiftNRG Node
 
 [Service]
 WorkingDirectory='$REPO_DIR'
-CHAINJSON='$CHAIN_SPEC'
 
-ExecStart='$REPO_DIR'/target/release/node-template --base-path '$CHAIN_DIR' --chain='$CHAIN_SPEC' --port 30333 --ws-port 9944 --rpc-port 9933  --name "'$NODE_NAME'"
+ExecStart='$NODE_TEMPLATE' --base-path '$CHAIN_DIR' --chain='$CHAIN_SPEC' --port 30333 --ws-port 9944 --rpc-port 9933  --name "'$NODE_NAME'"
 Restart=always
 RestartSec=120
 
