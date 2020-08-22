@@ -12,39 +12,39 @@ CHAIN_SPEC="$REPO_DIR/chain-spec/$TESTNET"
 
 ### FUNCTIONS ###
 createValidatorDaemonService() {
-    cat > /etc/systemd/system/shift-substrate-validator.service <<EOF
+    sudo bash -c 'cat > /etc/systemd/system/shift-substrate-validator.service <<EOF
 [Unit]
 Description=ShiftNRG Validator
 
 [Service]
-WorkingDirectory=$REPO_DIR
-CHAINJSON=$REPO_DIR/shiftSubstrateTN02.json
+WorkingDirectory='$REPO_DIR'
+CHAINJSON='$CHAIN_SPEC'
 
-ExecStart=$REPO_DIR/target/release/node-template --base-path $CHAIN_DIR --chain=$CHAIN_SPEC --port 30333 --ws-port 9944 --rpc-port 9933 --validator --rpc-methods=Unsafe --name "$NODE_NAME" --rpc-cors all
+ExecStart=$REPO_DIR/target/release/node-template --base-path '$CHAIN_DIR' --chain='$CHAIN_SPEC' --port 30333 --ws-port 9944 --rpc-port 9933 --validator --rpc-methods=Unsafe --name "'$NODE_NAME'" --rpc-cors all
 Restart=always
 RestartSec=120
 
 [Install]
 WantedBy=multi-user.target
-EOF
+EOF'
 }
 
 createNodeDaemonService() {
-    cat > /etc/systemd/system/shift-substrate-node.service <<EOF
+    sudo bash -c 'cat > /etc/systemd/system/shift-substrate-node.service <<EOF
 [Unit]
 Description=ShiftNRG Node
 
 [Service]
-WorkingDirectory=$REPO_DIR
-CHAINJSON=$REPO_DIR/shiftSubstrateTN02.json
+WorkingDirectory='$REPO_DIR'
+CHAINJSON='$CHAIN_SPEC'
 
-ExecStart=$REPO_DIR/target/release/node-template --base-path $CHAIN_DIR --chain=$CHAIN_SPEC --port 30333 --ws-port 9944 --rpc-port 9933  --name "$NODE_NAME"
+ExecStart=$REPO_DIR/target/release/node-template --base-path '$CHAIN_DIR' --chain='$CHAIN_SPEC' --port 30333 --ws-port 9944 --rpc-port 9933  --name "'$NODE_NAME'"
 Restart=always
 RestartSec=120
 
 [Install]
 WantedBy=multi-user.target
-EOF
+EOF'
 }
 
 validatorOrNode() {
@@ -53,18 +53,18 @@ validatorOrNode() {
 
     if [ "$validatingOrNot" == "v" ] || [ -z "$validatingOrNot" ]; then
         createValidatorDaemonService
-        systemctl enable shift-substrate-validator.service
-        systemctl start shift-substrate-validator.service
+        sudo systemctl enable shift-substrate-validator.service
+        sudo systemctl start shift-substrate-validator.service
     else
         createNodeDaemonService
-        systemctl enable shift-substrate-node.service
-        systemctl start shift-substrate-node.service
+        sudo systemctl enable shift-substrate-node.service
+        sudo systemctl start shift-substrate-node.service
     fi
 }
 
 setupUbuntu() {
     printf "Enabling validator/node as a service...\n"
-    validatorOrNodes
+    validatorOrNode
 }
 
 ### EXECUTION ###
@@ -86,7 +86,6 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
 		echo "Arch Linux detected."
 		export OPENSSL_LIB_DIR="/usr/lib/openssl-1.0";
 		export OPENSSL_INCLUDE_DIR="/usr/include/openssl-1.0"
-        setupUbuntu
 	elif [ -f /etc/mandrake-release ]; then
 		echo "Mandrake Linux detected."
 		echo "This OS is not supported with this script at present. Sorry."
@@ -94,6 +93,7 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
 		exit 1
 	elif [ -f /etc/debian_version ]; then
 		echo "Ubuntu/Debian Linux detected."
+        setupUbuntu
 	else
 		echo "Unknown Linux distribution."
 		echo "This OS is not supported with this script at present. Sorry."
