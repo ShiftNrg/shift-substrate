@@ -2,7 +2,7 @@
     "name": "ShiftNRG Testnet",
     "id": "shiftnrg_testnet",
     "chainType": "Development",
-    "bootNodes": [],
+    "bootNodes": ["/dns/substrate.shiftnrg.dev/tcp/30333/p2p/12D3KooWFt1KMWsgQLRihKm2ebiQv74sGZZKX5FZNoxro1ZiWw3W"],
     "telemetryEndpoints": [["wss://telemetry.polkadot.io/submit/", 0]],
     "protocolId": null,
     "properties": null,
