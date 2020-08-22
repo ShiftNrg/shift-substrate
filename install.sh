@@ -2,15 +2,15 @@
 ### Import script helpers ###
 source ./scripts/color.sh
 
-## CHECKOUT GIT COMMITS ##
-printf "${BLUE}Checkout v2.0.0-rc6 via commit hash\n"
-cd substrate-node/
-git checkout c9fda53e31bd9d755aa057a04ba7e80fd13e4d6e   
-cd ..
+## CHECKOUT GIT COMMITS ## Not needed - REMOVE ME
+# printf "${BLUE}Checkout v2.0.0-rc6 via commit hash\n"
+# cd substrate-node/
+# git checkout c9fda53e31bd9d755aa057a04ba7e80fd13e4d6e   
+# cd ..
 
-cd substrate-front-end/
-git checkout 0252e7a3998036209d159ec437e19493519d9c41
-cd ..
+# cd substrate-front-end/
+# git checkout 0252e7a3998036209d159ec437e19493519d9c41
+# cd ..
 
 ## Pull down submodules code
 git submodule update --init --recursive
