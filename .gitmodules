@@ -1,0 +1,8 @@
+[submodule "substrate-front-end"]
+	path = substrate-front-end
+	url = https://github.com/substrate-developer-hub/substrate-front-end-template
+	branch = master
+[submodule "substrate-node"]
+	path = substrate-node
+	url = https://github.com/substrate-developer-hub/substrate-node-template
+	branch = master
