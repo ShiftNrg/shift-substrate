@@ -1,6 +1,6 @@
 #!/bin/bash
 ### Import script helpers ###
-source ./scripts/color.sh
+source ./scripts/scripts.sh
 
 ## CHECKOUT GIT COMMITS ## Not needed - REMOVE ME
 # printf "${BLUE}Checkout v2.0.0-rc6 via commit hash\n"
@@ -32,6 +32,8 @@ printf "This may take 20+ minutes: Compiling ShiftNRG Substrate Code...\n"
 cd substrate-node/
 cargo build --release
 cd ..
+
+installNode
 
 printf "Install node_modules for front-end app...\n"
 #cd substrate-front-end/
