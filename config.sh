@@ -3,11 +3,12 @@
 source ./scripts/color.sh
 
 ### CONFIGURATION ###
-NODE_NAME="YOUR NODE NAME"
+NODE_NAME="YOUR_NODE_NAME" # no spaces!
 TESTNET="testnet.json"
 
 REPO_DIR="/home/$USER/shift-substrate"
-CHAIN_DIR="$REPO_DIR/chain"
+VALIDATOR_DIR="$REPO_DIR/validator-chain"
+FULLNODE_DIR="$REPO_DIR/fullnode-chain"
 CHAIN_SPEC="$REPO_DIR/chain-spec/$TESTNET"
 NODE_TEMPLATE="$REPO_DIR/substrate-node/target/release/node-template"
 
@@ -20,7 +21,7 @@ Description=ShiftNRG Validator
 [Service]
 WorkingDirectory='$REPO_DIR'
 
-ExecStart='$NODE_TEMPLATE' --base-path '$CHAIN_DIR' --chain='$CHAIN_SPEC' --port 30333 --ws-port 9944 --rpc-port 9933 --validator --rpc-methods=Unsafe --name "'$NODE_NAME'" --rpc-cors all
+ExecStart='$NODE_TEMPLATE' --base-path '$VALIDATOR_DIR' --chain='$CHAIN_SPEC' --port 30333 --ws-port 9944 --rpc-port 9933 --validator --rpc-methods=Unsafe --name "'$NODE_NAME'" --rpc-cors all
 Restart=always
 RestartSec=120
 
@@ -37,7 +38,7 @@ Description=ShiftNRG Node
 [Service]
 WorkingDirectory='$REPO_DIR'
 
-ExecStart='$NODE_TEMPLATE' --base-path '$CHAIN_DIR' --chain='$CHAIN_SPEC' --port 30333 --ws-port 9944 --rpc-port 9933  --name "'$NODE_NAME'"
+ExecStart='$NODE_TEMPLATE' --base-path '$FULLNODE_DIR' --chain='$CHAIN_SPEC' --port 30333 --ws-port 9944 --rpc-port 9933  --name "'$NODE_NAME'"
 Restart=always
 RestartSec=120
 

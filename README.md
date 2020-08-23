@@ -27,3 +27,25 @@ These steps are currently working for Ubuntu 18.04. Other OS Support coming late
 * Status check: `sudo systemctl status shift-substrate-node.service`
 * Restarting your service: `sudo systemctl restart shift-substrate-node.service`
 * Tail logs: `tail -f /var/log/syslog`
+
+# Recommend VPS Specs
+* 2 CPU core
+* 2 GB RAM
+* Ubuntu 18.04
+  
+* AWS EC2 Instances:
+  * t3.small 2c/2GB
+  * t3.medium 2c/4GB
+  * t2.medium 2c/4GB
+
+* Referral Links:
+  * [Digital Ocean](https://m.do.co/c/2e7929d058d5) 
+    * $15/mo - 2c/2GB 60GB SSD
+
+## Sample Compile Times
+This is from a fresh Ubuntu 18.04 instance
+
+* DO - 2c/2GB/60GB SSD - `Finished release [optimized] target(s) in 43m 17s`
+* AWS t3a.small - `Finished release [optimized] target(s) in 73m 52s` IE: t3a.small **not recommended**
+* Private VM - 2c/2GB/SSD - `Finished release [optimized] target(s) in 42m 49s`
+  * CPU - Ryzen 7 1700
