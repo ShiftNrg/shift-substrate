@@ -1,6 +1,7 @@
 #!/bin/bash
 ### Import script helpers ###
-source ./scripts/scripts.sh
+source ./scripts/color.sh
+source ./scripts/node-install.sh
 
 ## CHECKOUT GIT COMMITS ## Not needed - REMOVE ME
 # printf "${BLUE}Checkout v2.0.0-rc6 via commit hash\n"
@@ -33,11 +34,11 @@ cd substrate-node/
 cargo build --release
 cd ..
 
-installNode
-
 printf "Install node_modules for front-end app...\n"
-#cd substrate-front-end/
-#yarn install
+installNode
+node install -g yarn
+cd substrate-front-end/
+yarn install
 
 printf "${YELLOW}Proceed to to launch \`./config.sh\` after editing the file\n"
 
