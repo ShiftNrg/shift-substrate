@@ -36,7 +36,7 @@ cd ..
 
 printf "Install node_modules for front-end app...\n"
 installNode
-node install -g yarn
+npm install -g yarn
 cd substrate-front-end/
 yarn install
 
