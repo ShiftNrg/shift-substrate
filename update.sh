@@ -12,8 +12,8 @@ sudo systemctl stop shift-substrate-node.service
 
 # Remove chain folder
 sudo rm -R ./chain # deprecated but needed for several rounds
-sudo rm -R VALIDATOR_DIR
-sudo rm -R FULLNODE_DIR
+sudo rm -R $VALIDATOR_DIR
+sudo rm -R $FULLNODE_DIR
 
 # Remove old submodule
 sudo rm -R ./substrate-node
