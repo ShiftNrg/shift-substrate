@@ -17,7 +17,7 @@ if which docker > /dev/null
         sudo apt install -y docker-ce
         echo "Adding user to docker group..."
 
-        if grep -q $group /etc/group
+        if grep -q docker /etc/group
         then
             echo "group exists"
         else
