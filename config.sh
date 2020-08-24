@@ -6,11 +6,11 @@ source ./scripts/color.sh
 NODE_NAME="YOUR_NODE_NAME" # no spaces!
 TESTNET="testnet.json"
 
-REPO_DIR="/home/$USER/shift-substrate-core"
+REPO_DIR="/home/$USER/shift-substrate"
 VALIDATOR_DIR="$REPO_DIR/validator-chain"
 FULLNODE_DIR="$REPO_DIR/fullnode-chain"
 CHAIN_SPEC="$REPO_DIR/chain-spec/$TESTNET"
-NODE_TEMPLATE="$REPO_DIR/substrate-node/target/release/node-template"
+NODE_TEMPLATE="$REPO_DIR/shift-substrate-core/target/release/shift-node"
 
 ### FUNCTIONS ###
 createValidatorDaemonService() {
