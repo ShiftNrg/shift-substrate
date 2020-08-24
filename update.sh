@@ -11,6 +11,7 @@ sudo systemctl stop shift-substrate-validator.service
 sudo systemctl stop shift-substrate-node.service
 
 # Remove chain folder
+sudo rm -R ./chain # deprecated but needed for several rounds
 sudo rm -R VALIDATOR_DIR
 sudo rm -R FULLNODE_DIR
 
