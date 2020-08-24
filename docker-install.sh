@@ -17,5 +17,5 @@ fi
 
 getent group docker || groupadd docker
 sudo usermod -aG docker ${USER}
-newgrp docker
+echo "Attempt command `docker ps`; if it fails, logout and back into your server"
 exit 0
