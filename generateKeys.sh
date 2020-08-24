@@ -8,6 +8,8 @@ useDocker() {
             echo "Please install docker via './docker-install.sh' command"
             exit 1
     fi
+    
+    docker pull parity/subkey:2.0.0-rc6
 
     printf "Generating Aura Keys\n"
     docker run parity/subkey:2.0.0-rc6 generate -n "shift" --scheme Sr25519 --output-type Json
