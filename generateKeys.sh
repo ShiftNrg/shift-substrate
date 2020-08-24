@@ -29,7 +29,7 @@ useSubkey() {
     subkey inspect-key --scheme Sr25519 "$mnemonic"
 }
 
-echo -n "Generate Keys using Docker (d) or Subkey (s)? ([d]/s): "
+echo -n "Generate Keys using Docker (d) or Subkey (s)? ([d]/s) \n (Note: subkey must already be installed) : "
 read validatingOrNot
 
 if [ "$validatingOrNot" == "d" ] || [ -z "$validatingOrNot" ]; then
