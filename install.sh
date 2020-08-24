@@ -30,7 +30,7 @@ rustup update stable
 rustup target add wasm32-unknown-unknown --toolchain nightly
 
 printf "This may take 20+ minutes: Compiling ShiftNRG Substrate Code...\n"
-cd substrate-node/
+cd shift-substrate-core/
 cargo build --release
 cd ..
 

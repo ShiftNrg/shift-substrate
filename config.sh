@@ -6,7 +6,7 @@ source ./scripts/color.sh
 NODE_NAME="YOUR_NODE_NAME" # no spaces!
 TESTNET="testnet.json"
 
-REPO_DIR="/home/$USER/shift-substrate"
+REPO_DIR="/home/$USER/shift-substrate-core"
 VALIDATOR_DIR="$REPO_DIR/validator-chain"
 FULLNODE_DIR="$REPO_DIR/fullnode-chain"
 CHAIN_SPEC="$REPO_DIR/chain-spec/$TESTNET"
