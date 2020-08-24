@@ -15,18 +15,12 @@ if which docker > /dev/null
         sudo apt update
         apt-cache policy docker-ce
         sudo apt install -y docker-ce
-        echo "Adding user to docker group..."
-
-        if grep -q docker /etc/group
-        then
-            echo "group exists"
-        else
-            sudo groupadd docker
-        fi
-        sudo usermod -aG docker ${USER}
-        newgrp docker
         echo "Docker setup complete! 💯"
 fi
+
+getent group docker || groupadd docker
+sudo usermod -aG docker ${USER}
+newgrp docker
 
 printf "Generating Aura Keys\n"
 docker run parity/subkey:2.0.0-rc6 generate --scheme Sr25519
