@@ -12,10 +12,10 @@ if which docker > /dev/null
         apt-cache policy docker-ce
         sudo apt install -y docker-ce
         echo "Docker setup complete! 💯"
-        printf "To uninstall docker run: 'sudo apt-get remove docker docker-engine docker.io containerd runc docker-ce-cli'\n"
 fi
 
 getent group docker || groupadd docker
 sudo usermod -aG docker ${USER}
 echo "Attempt command `docker ps`; if it fails, logout and back into your server"
+printf "To uninstall docker run: 'sudo apt-get remove docker docker-engine docker.io containerd runc docker-ce-cli'\n"
 exit 0
