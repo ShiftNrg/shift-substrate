@@ -19,11 +19,19 @@ These steps are currently working for Ubuntu 18.04. Other OS Support coming late
   * `sudo ufw allow 30333 && sudo ufw reload`
 
 # Validators
+
+## Key Creation
+* Install Docker `./docker-install.sh` or already have subkey installed & compiled (takes forever!)
+* Run `./generateKeys.sh`. Save the output of this command. Complete step 4 listed under `Validator Step Only!`
+
+## Useful Commands
 * Status check: `sudo systemctl status shift-substrate-validator.service`
 * Restarting your service: `sudo systemctl restart shift-substrate-validator.service`
 * Tail logs: `tail -f /var/log/syslog`
 
 # Full Nodes
+
+## Useful Commands
 * Status check: `sudo systemctl status shift-substrate-node.service`
 * Restarting your service: `sudo systemctl restart shift-substrate-node.service`
 * Tail logs: `tail -f /var/log/syslog`
