@@ -35,10 +35,10 @@ cargo build --release
 cd ..
 
 printf "Install node_modules for front-end app...\n"
-installNode
-npm install -g yarn
-cd substrate-front-end/
-yarn install
+# installNode
+# npm install -g yarn
+# cd substrate-front-end/
+# yarn install
 
 printf "${YELLOW}Proceed to to launch \`./config.sh\` after editing the file\n"
 
