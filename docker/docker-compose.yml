@@ -1,0 +1,17 @@
+version: "3.2"
+
+services:
+  subkey:
+    container_name: substrate-subkey
+    image: parity/subkey:latest
+    #working_dir: /var/www/node-template
+    #ports:
+    #  - "9944:9944"
+    environment:
+      - CARGO_HOME=/var/www/node-template/.cargo
+    # volumes:
+    #   - .:/var/www/node-template
+    #   - type: bind
+    #     source: ./.local
+    #     target: /root/.local
+    command: generate
