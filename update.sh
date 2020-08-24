@@ -14,6 +14,9 @@ sudo systemctl stop shift-substrate-node.service
 sudo rm -R VALIDATOR_DIR
 sudo rm -R FULLNODE_DIR
 
+# Remove old submodule
+sudo rm -R ./substrate-node
+
 # back up keystore files
 cp ./keystore/* ../
 
