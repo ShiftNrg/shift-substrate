@@ -2,7 +2,7 @@
 	path = substrate-front-end
 	url = https://github.com/substrate-developer-hub/substrate-front-end-template
 	branch = master
-[submodule "substrate-node"]
+[submodule "shift-substrate-core"]
 	path = substrate-node
-	url = https://github.com/substrate-developer-hub/substrate-node-template
+	url = https://github.com/ShiftNrg/shift-substrate-core
 	branch = master

@@ -7,7 +7,7 @@ These steps are currently working for Ubuntu 18.04. Other OS Support coming late
 1. run `./install.sh` # this will take up to 15-30 minutes pending your system's specs
 2. `nano ./config.sh` # Update `NODE_NAME` (Line 6) to your liking 
 3. run `./config.sh` # this setups the configuration and runs the node as a service on your Ubuntu system
-   1. This script will ask if you're wanting to be a `validator` or `full node`. Answer occurdingly. 
+   1. This script will ask if you're wanting to be a `validator` or `full node`. Answer accordingly. 
    2. This script enables and starts your validator/node! Check the sections belows
 4. **Validator Step Only!** Update the `./keystore/aura.json` & `./keystore/gran.json` files with your `mnemonic phrase` key and `public key`
    1. Run `./insert-keys.sh`. Note: node must be running!
