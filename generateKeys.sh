@@ -4,9 +4,21 @@ if which docker > /dev/null
     then
         echo "Docker is installed...Will continue"
     else
-        echo "Please install docker. Then try again"
-        echo "Future release will install docker for you"
-        exit 1
+        # echo "Please install docker. Then try again"
+        # echo "Future release will install docker for you"
+        # exit 1
+
+        echo "Installing Docker... One moment please..."
+        sudo apt install apt-transport-https ca-certificates curl software-properties-common
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+        sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+        sudo apt update
+        apt-cache policy docker-ce
+        sudo apt install docker-ce
+        sudo systemctl status docker
+        echo "Adding user to docker group..."
+        sudo usermod -aG docker ${USER}
+        echo "Docker setup complete! 💯"
 fi
 
 printf "Generating Aura Keys\n"
