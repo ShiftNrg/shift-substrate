@@ -28,5 +28,11 @@ git pull
 # pull new submodules down
 git submodule update --init --recursive  
 
+# put key files back, delete temp copies
 cp ../aura.json ./keystore/aura.json
 cp ../gran.json ./keystore/gran.json
+rm ../aura.json
+rm ../gran.json
+
+echo "Update complete. Please verify your keys in the /keystore"
+echo "Make sure your SS58 Address starts with a number '3'"
