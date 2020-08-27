@@ -4,8 +4,8 @@ CURL_CMD='curl http://localhost:9933 -H "Content-Type:application/json;charset=u
 
 echo "/// Node Info \\\\\\"
 echo ""
-$CURL_CMD "@./json/nodeRole.json"
+$CURL_CMD '"@./json/nodeRole.json"'
 echo ""
-$CURL_CMD "@./json/verifyAura.json"
+$CURL_CMD '"@./json/verifyAura.json"'
 echo ""
-$CURL_CMD "@./json/verifyGran.json"
+$CURL_CMD '"@./json/verifyGran.json"'
