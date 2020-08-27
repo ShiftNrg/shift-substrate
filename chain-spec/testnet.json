@@ -3,7 +3,7 @@
   "id": "shift-testnet",
   "chainType": "Development",
   "bootNodes": [
-    "/dns/substrate.shiftnrg.dev/tcp/30333/p2p/12D3KooWLP7XyqX6h7Nm5AvTSdZ9dGqMo212g5ee9N5MdBLSyjhy"
+    "/dns/substrate.shiftnrg.dev/tcp/30333/p2p/12D3KooWCvDcPVwtH2LN3niURsfNXMw7qLmDMWMzp7hF7Yb4nrYM"
   ],
   "telemetryEndpoints": [
     [
