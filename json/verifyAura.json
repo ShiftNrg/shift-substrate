@@ -1,0 +1,9 @@
+{
+    "jsonrpc":"2.0",
+    "id":1,
+    "method":"author_hasKey",
+    "params": [
+      "<public key>",
+      "aura"
+    ]
+  }
