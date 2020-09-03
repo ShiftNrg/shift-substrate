@@ -1,7 +1,7 @@
 # shift-substrate
 ShiftNRG's Substrate blockchain source code
 
-## Setup Steps
+## Installation Steps
 These steps are currently working for Ubuntu 18.04. Other OS Support coming later.
 
 1. run `./install.sh` # this will take up to 15-30 minutes pending your system's specs
@@ -15,28 +15,33 @@ These steps are currently working for Ubuntu 18.04. Other OS Support coming late
    3. Restart your Validator! `sudo systemctl restart shift-substrate-validator.service`
 
 # Notes
-* allow port `30333` through your firewall. This is the default p2p port for node comms
+* allow port `30333` through your firewall. This is the default p2p port for nodes to communicate with each other
   * `sudo ufw allow 30333 && sudo ufw reload`
 
-# Validators
+* the scripts will create a hidden folder `.shift-substrate` in your home directory
+  * it will also create either a `mainnet` or `testnet` folder under this hidden directory
+    * in these folders sensitive information is stored! Secure your servers!
+      * `node-key` containts the private key for your node to generate it's public peer id
+        * you see your node's peer id in the logs when your start/restart the service
+      * `aura.json` contains your AURA secrets
+      * `gran.json` containt your GRANDPA secrets
 
-## Key Creation
-* Install Docker `./docker-install.sh` or already have subkey installed & compiled (takes forever!)
-* Run `./generateKeys.sh`. Save the output of this command. Complete step 4 listed under `Validator Step Only!`
-
-## Useful Commands
+## Validators
 * Status check: `sudo systemctl status shift-substrate-validator.service`
 * Restarting your service: `sudo systemctl restart shift-substrate-validator.service`
 * Tail logs: `tail -f /var/log/syslog`
+  
+### Key Creation
+* Install Docker `./docker-install.sh` or already have subkey installed & compiled (takes forever!)
+* Run `./generateKeys.sh`. Save the output of this command. Complete step 4 listed under `Validator Step Only!`
 
-# Full Nodes
-
-## Useful Commands
+## Full Nodes
 * Status check: `sudo systemctl status shift-substrate-node.service`
 * Restarting your service: `sudo systemctl restart shift-substrate-node.service`
 * Tail logs: `tail -f /var/log/syslog`
 
-# Recommend VPS Specs
+## Recommend VPS Specs
+Minimum amount of RAM required: 2 GB
 * 2 CPU core
 * 2 GB RAM
 * Ubuntu 18.04
