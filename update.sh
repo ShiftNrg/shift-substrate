@@ -4,7 +4,7 @@ REPO_DIR="/home/$USER/shift-substrate"
 VALIDATOR_DIR="$REPO_DIR/validator-chain"
 FULLNODE_DIR="$REPO_DIR/fullnode-chain"
 CHAIN_SPEC="$REPO_DIR/chain-spec/$TESTNET"
-NODE_TEMPLATE="$REPO_DIR/shift-substrate-core/target/release/shift-node"
+SHIFT_NODE="$REPO_DIR/shift-substrate-core/target/release/shift-node"
 
 # Stop validator | node
 sudo systemctl stop shift-substrate-validator.service

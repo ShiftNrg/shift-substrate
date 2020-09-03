@@ -29,7 +29,7 @@ These steps are currently working for Ubuntu 18.04. Other OS Support coming late
 ## Validators
 * Status check: `sudo systemctl status shift-substrate-validator.service`
 * Restarting your service: `sudo systemctl restart shift-substrate-validator.service`
-* Tail logs: `tail -f /var/log/syslog`
+* Tail logs: `sudo journalctl -f -u shift-substrate-validator.service`
   
 ### Key Creation
 * Install Docker `./docker-install.sh` or already have subkey installed & compiled (takes forever!)
@@ -38,7 +38,7 @@ These steps are currently working for Ubuntu 18.04. Other OS Support coming late
 ## Full Nodes
 * Status check: `sudo systemctl status shift-substrate-node.service`
 * Restarting your service: `sudo systemctl restart shift-substrate-node.service`
-* Tail logs: `tail -f /var/log/syslog`
+* Tail logs: `sudo journalctl -f -u shift-substrate-node.service`
 
 ## Recommend VPS Specs
 Minimum amount of RAM required: 2 GB
