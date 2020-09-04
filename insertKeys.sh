@@ -25,4 +25,4 @@ printf "${RED}Inserting GRAN Key into your local node\n"
 curl http://localhost:9933 -H "Content-Type:application/json;charset=utf-8" -d "@${DIR}/${GRAN}"
 
 echo ""
-echo "Please restart your node"
+echo "Please restart your node - run ./restart.sh"
