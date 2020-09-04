@@ -1,6 +1,8 @@
 #!/bin/bash
+# Author: Swezey <swezey@shiftnrg.org>
 ### Import script helpers ###
 source ./scripts/color.sh
+source ./scripts/node-install.sh
 
 ## CHECKOUT GIT COMMITS ## Not needed - REMOVE ME
 # printf "${BLUE}Checkout v2.0.0-rc6 via commit hash\n"
@@ -16,7 +18,7 @@ source ./scripts/color.sh
 git submodule update --init --recursive
 
 ### START ####
-printf "${RED}Install Script: ShiftNRG's Substrate Node\n"
+printf "${RED}Install Script: ShiftNrg's Substrate Node\n"
 printf "Intstalling prerquisites...\n"
 curl https://getsubstrate.io -sSf | bash -s -- --fast
 
@@ -28,15 +30,35 @@ rustup update stable
 # Add Wasm target
 rustup target add wasm32-unknown-unknown --toolchain nightly
 
-printf "This may take 20+ minutes: Compiling ShiftNRG Substrate Code...\n"
-cd substrate-node/
+printf "This may take 20+ minutes: Compiling ShiftNrg Substrate Code...\n"
+cd shift-substrate-core/
 cargo build --release
 cd ..
 
-printf "Install node_modules for front-end app...\n"
-#cd substrate-front-end/
-#yarn install
+if which jq > /dev/null
+    then
+        :
+    else
+        sudo apt install -y jq
+fi
 
-printf "${YELLOW}Proceed to to launch \`./config.sh\` after editing the file\n"
+if which docker > /dev/null
+    then
+        echo "Docker is already installed, skipping"
+    else
+        echo -n "Would you like to install docker? ([y]/n) "
+            read DOCKER_CHOICE
+        if [ "$DOCKER_CHOICE" == "y" ] || [ -z "$DOCKER_CHOICE" ]; then
+            bash dockerInstall.sh
+        fi
+fi
+
+printf "Install node_modules for front-end app...\n"
+# installNode
+# npm install -g yarn
+# cd substrate-front-end/
+# yarn install
+
+printf "${YELLOW}Proceed to launch \`./generateKeys.sh\`"
 
 exit 0
