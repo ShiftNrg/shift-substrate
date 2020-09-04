@@ -195,4 +195,6 @@ if [ "$DOCKER_CHOICE" == "d" ] || [ -z "$DOCKER_CHOICE" ]; then
 echo "Files saved under ${DIR}"
 echo "Backup these files in a secure, encrypted location"
 
-printf "${YELLOW}Proceed to launch ./config.sh"
+printf "${YELLOW}Proceed to launch ./config.sh \n"
+
+exit 0

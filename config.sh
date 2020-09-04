@@ -29,7 +29,7 @@ SHIFT_NODE="$REPO_DIR/shift-substrate-core/target/release/shift-node"
 createValidatorDaemonService() {
     sudo bash -c 'cat > /etc/systemd/system/shift-substrate-validator.service <<EOF
 [Unit]
-Description=ShiftNRG Validator
+Description=ShiftNrg Validator
 
 [Service]
 WorkingDirectory='$REPO_DIR'
@@ -46,12 +46,12 @@ EOF'
 createNodeDaemonService() {
     sudo bash -c 'cat > /etc/systemd/system/shift-substrate-node.service <<EOF
 [Unit]
-Description=ShiftNRG Node
+Description=ShiftNrg Node
 
 [Service]
 WorkingDirectory='$REPO_DIR'
 
-ExecStart='$SHIFT_NODE' --base-path '$FULLNODE_DIR' --chain='$CHAIN_SPEC' --node-key-file='$PEER_KEY' --port 30333 --ws-port 9944 --rpc-port 9933  --name "'$NODE_NAME'"
+ExecStart='$SHIFT_NODE' --base-path '$FULLNODE_DIR' --chain='$CHAIN_SPEC' --node-key="$(< '$PEER_KEY')" --port 30333 --ws-port 9944 --rpc-port 9933  --name "'$NODE_NAME'"
 Restart=always
 RestartSec=120
 

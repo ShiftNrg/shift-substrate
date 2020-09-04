@@ -1,5 +1,9 @@
 # shift-substrate
-ShiftNRG's Substrate blockchain source code
+ShiftNrg's Substrate blockchain source code
+
+## Important Information
+* This code has not launched a mainnet version!
+* Keys generated during this phase should not be used on any mainnets! 
 
 ## Installation Steps
 These steps are currently working for an opinionated Ubuntu 18.04 install. Other OS Support coming later.

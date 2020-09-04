@@ -18,7 +18,7 @@ source ./scripts/node-install.sh
 git submodule update --init --recursive
 
 ### START ####
-printf "${RED}Install Script: ShiftNRG's Substrate Node\n"
+printf "${RED}Install Script: ShiftNrg's Substrate Node\n"
 printf "Intstalling prerquisites...\n"
 curl https://getsubstrate.io -sSf | bash -s -- --fast
 
@@ -30,7 +30,7 @@ rustup update stable
 # Add Wasm target
 rustup target add wasm32-unknown-unknown --toolchain nightly
 
-printf "This may take 20+ minutes: Compiling ShiftNRG Substrate Code...\n"
+printf "This may take 20+ minutes: Compiling ShiftNrg Substrate Code...\n"
 cd shift-substrate-core/
 cargo build --release
 cd ..
