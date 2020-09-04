@@ -11,14 +11,21 @@ ShiftNrg's Substrate blockchain source code
 These steps are currently working for an opinionated Ubuntu 18.04 install. Other OS Support coming later.
 
 1. run `./install.sh` # this will take up to 15-30 minutes pending your system's specs
-2. `nano ./config.sh` # Update `NODE_NAME` (Line 6) to your liking 
+2. run `./generateKeys.sh` # this will prompt the user through some configuration steps. Recommend to use subkey! 
+   1. This script will ask you for mainnet (m) or testnet (t). Option t leads to a working chain for the time being.
+   2. This script will ask if you're going to be a full node or validator. 
+      * Answering v (validator) will lead to validator key set generation from a new mnemonic or existing one
+   3. This script will ask you if you're using subkey or docker.
+      * Subkey is the current choice that leads to a successful node peer id key being generated and saved
 3. run `./config.sh` # this setups the configuration and runs the node as a service on your Ubuntu system
    1. This script will ask if you're wanting to be a `validator` or `full node`. Answer accordingly. 
+   2. This script will ask for you to enter your node name.
    2. This script enables and starts your validator/node! Check the sections belows
-4. **Validator Step Only!** Update the `./keystore/aura.json` & `./keystore/gran.json` files with your `mnemonic phrase` key and `public key`
-   1. Run `./insert-keys.sh`. Note: node must be running!
+4. **Validator Step Only!**
+   1. Run `./insert-keys.sh`. Note: node must be running! No need to edit files 😎
    2. Successful result output: `{"jsonrpc":"2.0","result":null,"id":1}`
    3. Restart your Validator! `sudo systemctl restart shift-substrate-validator.service`
+      * or `./restart.sh`
 
 # Notes
 * allow port `30333` through your firewall. This is the default p2p port for nodes to communicate with each other
