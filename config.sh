@@ -1,4 +1,5 @@
 #!/bin/bash
+# Author: Swezey <swezey@shiftnrg.org>
 ### Import script helpers ###
 source ./scripts/color.sh
 
@@ -8,15 +9,20 @@ echo -n "Name your node (no spaces):"
     read NODE_NAME_INPUT
 NODE_NAME="${NODE_NAME_INPUT}" # no spaces!
 
+MAINNET_DIR=~/.shift-substrate/mainnet
+TESTNET_DIR=~/.shift-substrate/testnet
+NODE_KEY="node-key"
+AURA=aura.json
+GRAN=gran.json
 TESTNET_SPEC="testnet.json"
 MAINNET_SPEC="mainnet.json"
+PEER_KEY=$TESTNET_DIR/$NODE_KEY
 
 REPO_DIR="/home/$USER/shift-substrate"
 VALIDATOR_DIR="$REPO_DIR/validator-chain"
 FULLNODE_DIR="$REPO_DIR/fullnode-chain"
 CHAIN_SPEC="$REPO_DIR/chain-spec/$TESTNET_SPEC"
 SHIFT_NODE="$REPO_DIR/shift-substrate-core/target/release/shift-node"
-
 
 ### FUNCTIONS ###
 createValidatorDaemonService() {
@@ -27,7 +33,7 @@ Description=ShiftNRG Validator
 [Service]
 WorkingDirectory='$REPO_DIR'
 
-ExecStart='$SHIFT_NODE' --base-path '$VALIDATOR_DIR' --chain='$CHAIN_SPEC' --port 30333 --ws-port 9944 --rpc-port 9933 --validator --rpc-methods=Unsafe --name "'$NODE_NAME'" --rpc-cors all
+ExecStart='$SHIFT_NODE' --base-path '$VALIDATOR_DIR' --chain='$CHAIN_SPEC' --node-key-file='$PEER_KEY' --port 30333 --ws-port 9944 --rpc-port 9933 --validator --rpc-methods=Unsafe --name "'$NODE_NAME'" --rpc-cors all
 Restart=always
 RestartSec=120
 
@@ -44,7 +50,7 @@ Description=ShiftNRG Node
 [Service]
 WorkingDirectory='$REPO_DIR'
 
-ExecStart='$SHIFT_NODE' --base-path '$FULLNODE_DIR' --chain='$CHAIN_SPEC' --port 30333 --ws-port 9944 --rpc-port 9933  --name "'$NODE_NAME'"
+ExecStart='$SHIFT_NODE' --base-path '$FULLNODE_DIR' --chain='$CHAIN_SPEC' --node-key-file='$PEER_KEY' --port 30333 --ws-port 9944 --rpc-port 9933  --name "'$NODE_NAME'"
 Restart=always
 RestartSec=120
 

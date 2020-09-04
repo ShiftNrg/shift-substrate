@@ -1,4 +1,5 @@
 #!/bin/bash
+# Author: Swezey <swezey@shiftnrg.org>
 
 if which docker > /dev/null
     then

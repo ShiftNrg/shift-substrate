@@ -1,4 +1,6 @@
 #!/bin/bash
+# Author: Swezey <swezey@shiftnrg.org>
+
 ### CONFIGURATION ###
 REPO_DIR="/home/$USER/shift-substrate"
 VALIDATOR_DIR="$REPO_DIR/validator-chain"
@@ -22,17 +24,11 @@ sudo rm -R ./substrate-node
 cp ./keystore/* ../
 
 # reset changes
-git reset --hard
+git reset --hard HEAD^
 git pull
 
 # pull new submodules down
 git submodule update --init --recursive  
 
-# put key files back, delete temp copies
-cp ../aura.json ./keystore/aura.json
-cp ../gran.json ./keystore/gran.json
-rm ../aura.json
-rm ../gran.json
-
-echo "Update complete. Please verify your keys in the /keystore"
-echo "Make sure your SS58 Address starts with a number '3'"
+echo "Update complete. Previous saved in the cd .."
+# echo "Make sure your SS58 Address starts with a number '3'"

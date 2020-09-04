@@ -1,4 +1,5 @@
 #!/bin/bash
+# Author: Swezey <swezey@shiftnrg.org>
 ### Import script helpers ###
 source ./scripts/color.sh
 source ./scripts/node-install.sh
@@ -33,6 +34,24 @@ printf "This may take 20+ minutes: Compiling ShiftNRG Substrate Code...\n"
 cd shift-substrate-core/
 cargo build --release
 cd ..
+
+if which jq > /dev/null
+    then
+        :
+    else
+        sudo apt install -y jq
+fi
+
+if which docker > /dev/null
+    then
+        echo "Docker is already installed, skipping"
+    else
+        echo -n "Would you like to install docker? ([y]/n) "
+            read DOCKER_CHOICE
+        if [ "$DOCKER_CHOICE" == "y" ] || [ -z "$DOCKER_CHOICE" ]; then
+            bash dockerInstall.sh
+        fi
+fi
 
 printf "Install node_modules for front-end app...\n"
 # installNode

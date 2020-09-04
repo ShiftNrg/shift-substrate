@@ -1,4 +1,5 @@
 #!/bin/bash
+# Author: Swezey <swezey@shiftnrg.org>
 
 CURL_CMD='curl http://localhost:9933 -H "Content-Type:application/json;charset=utf-8" -d'
 

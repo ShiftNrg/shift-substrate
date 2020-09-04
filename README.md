@@ -2,7 +2,7 @@
 ShiftNRG's Substrate blockchain source code
 
 ## Installation Steps
-These steps are currently working for Ubuntu 18.04. Other OS Support coming later.
+These steps are currently working for an opinionated Ubuntu 18.04 install. Other OS Support coming later.
 
 1. run `./install.sh` # this will take up to 15-30 minutes pending your system's specs
 2. `nano ./config.sh` # Update `NODE_NAME` (Line 6) to your liking 
