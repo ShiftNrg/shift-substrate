@@ -24,7 +24,7 @@ sudo rm -R ./substrate-node
 cp ./keystore/* ../
 
 # reset changes
-git reset --hard HEAD^
+git reset --hard origin/master
 git pull
 
 # pull new submodules down
