@@ -167,15 +167,14 @@ echo ""
 echo -n "Are you using (d) docker or (s) subkey? ([d]/s): "
     read DOCKER_CHOICE
 echo ""
-echo -n "Do you have your own mnemonic phrase? (y/[n]): "
-    read MNEMONIC_CHOICE
-if [ "$MNEMONIC_CHOICE" == "y" ] || [ -z "$MNEMONIC_CHOICE" ]; then
-        echo -n "Enter your mnemonic: "
+if [ "$NODE_CHOICE" == "v" ] || [ -z "$NODE_CHOICE" ]; then
+        echo -n "Do you have your own mnemonic phrase? (y/[n]): "
+            read MNEMONIC_CHOICE
+        if [ "$MNEMONIC_CHOICE" == "y" ] || [ -z "$MNEMONIC_CHOICE" ]; then
+            echo -n "Enter your mnemonic: "
             read OWN_MNEMONIC
-    else
-        :
+        fi
     fi
-
 
 if [ "$NET_CHOICE" == "m" ] || [ -z "$NET_CHOICE" ]; then
         DIR=$MAINNET_DIR
