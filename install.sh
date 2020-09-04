@@ -59,6 +59,5 @@ printf "Install node_modules for front-end app...\n"
 # cd substrate-front-end/
 # yarn install
 
-printf "${YELLOW}Proceed to launch \`./generateKeys.sh\`"
-
+printf "${YELLOW}Proceed to launch \`./generateKeys.sh\`\n"
 exit 0
