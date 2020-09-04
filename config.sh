@@ -23,7 +23,8 @@ VALIDATOR_DIR="$REPO_DIR/validator-chain"
 FULLNODE_DIR="$REPO_DIR/fullnode-chain"
 CHAIN_SPEC="$REPO_DIR/chain-spec/$TESTNET_SPEC"
 SHIFT_NODE="$REPO_DIR/shift-substrate-core/target/release/shift-node"
-
+#  "$(< file.txt)"
+#  --node-key-file='$PEER_KEY'
 ### FUNCTIONS ###
 createValidatorDaemonService() {
     sudo bash -c 'cat > /etc/systemd/system/shift-substrate-validator.service <<EOF
@@ -33,7 +34,7 @@ Description=ShiftNRG Validator
 [Service]
 WorkingDirectory='$REPO_DIR'
 
-ExecStart='$SHIFT_NODE' --base-path '$VALIDATOR_DIR' --chain='$CHAIN_SPEC' --node-key-file='$PEER_KEY' --port 30333 --ws-port 9944 --rpc-port 9933 --validator --rpc-methods=Unsafe --name "'$NODE_NAME'" --rpc-cors all
+ExecStart='$SHIFT_NODE' --base-path '$VALIDATOR_DIR' --chain='$CHAIN_SPEC' --node-key="$(< '$PEER_KEY')" --port 30333 --ws-port 9944 --rpc-port 9933 --validator --rpc-methods=Unsafe --name "'$NODE_NAME'" --rpc-cors all
 Restart=always
 RestartSec=120
 
