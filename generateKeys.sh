@@ -58,8 +58,16 @@ useDocker() {
     if [ "$NODE_CHOICE" == "f" ] || [ -z "$NODE_CHOICE" ]; then
         :
     else
-        printf "Generating Aura Keys\n"
-        SR25519=$(docker run parity/subkey:2.0.0-rc6 generate -n "shift" --scheme Sr25519 --output-type Json)
+
+        if test -z "$OWN_MNEMONIC"
+            then
+                printf "Generating NEW Aura Keys\n"
+                SR25519=$(docker run parity/subkey:2.0.0-rc6 generate --scheme Sr25519 --output-type Json)
+            else
+                printf "Generating Aura Keys from existing mnemonic\n"
+                SR25519=$(docker run parity/subkey:2.0.0-rc6 inspect-key --scheme Sr25519 --output-type Json "$OWN_MNEMONIC")
+        fi
+
         echo $SR25519 | jq
 
         MNEMONIC=$(jq -r '.secretPhrase' <<< $SR25519)
@@ -68,7 +76,7 @@ useDocker() {
 
         printf "Generating Granpa Keys...\n"
         #read -p 'Paste Mnemoic: ' mnemonic
-        ED25519=$(docker run parity/subkey:2.0.0-rc6 inspect-key -n "shift" --scheme Ed25519 --output-type Json "$MNEMONIC")
+        ED25519=$(docker run parity/subkey:2.0.0-rc6 inspect-key --scheme Ed25519 --output-type Json "$MNEMONIC")
         echo $ED25519 | jq
 
         ED_PUB_KEY=$(jq -r '.publicKey' <<< $ED25519)
@@ -79,8 +87,8 @@ useDocker() {
     fi
 
     echo "Generating Peer ID Key..Error.."
-    echo "Docker image is support this feature. Error has been reported already."
-    echo "Please install subkey or continue and grob your peer ID from the logs."
+    echo "Docker image does not support this feature. Error has been reported already."
+    echo "Please install subkey or continue and grab your peer ID from the logs."
     # awaiting fix: https://github.com/paritytech/substrate/issues/7022
     # PEER_ID=$(docker run parity/subkey:2.0.0-rc6 generate-node-key --file ${DIR}/${NODE_KEY})
     # echo "Your NEW public node peer id is: ${PEER_ID}"
@@ -99,8 +107,16 @@ useSubkey() {
     if [ "$NODE_CHOICE" == "f" ] || [ -z "$NODE_CHOICE" ]; then
         :
     else
-        printf "Generating Aura Keys (SR25519)\n"
-        SR25519=$(subkey generate -n "shift" --scheme Sr25519 --output-type Json)
+
+        if test -z "$OWN_MNEMONIC"
+            then
+                printf "Generating NEW Aura Keys\n"
+                SR25519=$(subkey generate --scheme Sr25519 --output-type Json)
+            else
+                printf "Generating Aura Keys from existing mnemonic\n"
+                SR25519=$(subkey inspect-key --scheme Sr25519 --output-type Json "$OWN_MNEMONIC")
+        fi
+
         echo $SR25519 | jq
 
         MNEMONIC=$(jq -r '.secretPhrase' <<< $SR25519)
@@ -109,7 +125,7 @@ useSubkey() {
 
         printf "Generating Granpa Keys (ED25519)\n"
         # read -p 'Paste Mnemoic: ' mnemonic
-        ED25519=$(subkey inspect-key -n "shift" --scheme Ed25519 --output-type Json "$MNEMONIC")
+        ED25519=$(subkey inspect-key --scheme Ed25519 --output-type Json "$MNEMONIC")
         echo $ED25519 | jq
 
         ED_PUB_KEY=$(jq -r '.publicKey' <<< $ED25519)
@@ -145,18 +161,17 @@ useSubkey() {
 echo -n "Please chooose: ShiftNrg mainnet (m) or testnet (t)? ([m]/t): "
     read NET_CHOICE
 echo ""
-echo -n "Are you setting up a (f) Full Node or (v) Validator? ([f]/v)"
+echo -n "Are you setting up a (f) Full Node or (v) Validator? ([f]/v): "
     read NODE_CHOICE
 echo ""
-echo -n "Are you using (d) docker or (s) subkey? ([d]/s)"
+echo -n "Are you using (d) docker or (s) subkey? ([d]/s): "
     read DOCKER_CHOICE
 echo ""
-echo -n "Do you have your own mnemonic phrase? (y/[n])"
+echo -n "Do you have your own mnemonic phrase? (y/[n]): "
     read MNEMONIC_CHOICE
 if [ "$MNEMONIC_CHOICE" == "y" ] || [ -z "$MNEMONIC_CHOICE" ]; then
-        echo "Not Supported: WIP"
-        # echo -n "Enter your mnemonic: "
-            # read OWN_MNEMONIC
+        echo -n "Enter your mnemonic: "
+            read OWN_MNEMONIC
     else
         :
     fi
@@ -180,4 +195,4 @@ if [ "$DOCKER_CHOICE" == "d" ] || [ -z "$DOCKER_CHOICE" ]; then
 echo "Files saved under ${DIR}"
 echo "Backup these files in a secure, encrypted location"
 
-printf "${YELLOW}Proceed to launch \`./config.sh\`"
+printf "${YELLOW}Proceed to launch ./config.sh"
