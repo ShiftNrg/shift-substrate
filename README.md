@@ -10,6 +10,8 @@ ShiftNrg's Substrate blockchain source code
 ## Installation Steps
 These steps are currently working for an opinionated Ubuntu 18.04 install. Other OS Support coming later.
 
+### Notice - do not install as `root`. Create a (sudo privledged account)[https://www.digitalocean.com/community/tutorials/how-to-create-a-new-sudo-enabled-user-on-ubuntu-18-04-quickstart]
+
 1. run `./install.sh` # this will take up to 15-30 minutes pending your system's specs
 2. run `./generateKeys.sh` # this will prompt the user through some configuration steps. Recommend to use subkey! 
    1. This script will ask you for mainnet (m) or testnet (t). Option t leads to a working chain for the time being.
@@ -22,7 +24,7 @@ These steps are currently working for an opinionated Ubuntu 18.04 install. Other
    2. This script will ask for you to enter your node name.
    2. This script enables and starts your validator/node! Check the sections belows
 4. **Validator Step Only!**
-   1. Run `./insert-keys.sh`. Note: node must be running! No need to edit files 😎
+   1. Run `./insertKeys.sh`. Note: node must be running! No need to edit files 😎
    2. Successful result output: `{"jsonrpc":"2.0","result":null,"id":1}`
    3. Restart your Validator! `sudo systemctl restart shift-substrate-validator.service`
       * or `./restart.sh`
