@@ -10,7 +10,7 @@ ShiftNrg's Substrate blockchain source code
 ## Installation Steps
 These steps are currently working for an opinionated Ubuntu 18.04 install. Other OS Support coming later.
 
-### Notice - do not install as `root`. Create a [sudo privledged account](https://www.digitalocean.com/community/tutorials/how-to-create-a-new-sudo-enabled-user-on-ubuntu-18-04-quickstart)
+### Notice - do not install as `root`. Create a [sudo privileged account](https://www.digitalocean.com/community/tutorials/how-to-create-a-new-sudo-enabled-user-on-ubuntu-18-04-quickstart)
 
 1. run `./install.sh` # this will take up to 15-30 minutes pending your system's specs
 2. run `./generateKeys.sh` # this will prompt the user through some configuration steps. Recommend to use subkey! 
