@@ -47,7 +47,7 @@ These steps are currently working for an opinionated Ubuntu 18.04 install. Other
 * Tail logs: `sudo journalctl -f -u shift-substrate-validator.service`
   
 ### Key Creation
-* Install Docker `./docker-install.sh` or already have subkey installed & compiled (takes forever!)
+* Install Docker `./dockerInstall.sh` or already have subkey installed & compiled (takes forever!)
 * Run `./generateKeys.sh`. Save the output of this command. Complete step 4 listed under `Validator Step Only!`
 
 ## Full Nodes
