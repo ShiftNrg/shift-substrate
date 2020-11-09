@@ -29,7 +29,7 @@ rustup update nightly
 rustup update stable
 rustup install nightly-2020-10-06
 # Add Wasm target
-rustup target add wasm32-unknown-unknown --toolchain nightly-2020-10-06-x86_64-unknown-linux-gnu
+rustup target add wasm32-unknown-unknown --toolchain nightly-2020-10-06
 
 printf "This may take 20+ minutes: Compiling ShiftNrg Substrate Code...\n"
 cd shift-substrate-core/
