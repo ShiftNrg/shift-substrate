@@ -156,6 +156,9 @@ useSubkey() {
     fi
 }
 
+# Source subkey installation
+source ~/.cargo/env
+
 # User questions for key configuration
 echo -n "Please chooose: ShiftNrg mainnet (m) or testnet (t)? ([m]/t): "
     read NET_CHOICE
