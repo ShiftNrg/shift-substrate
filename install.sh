@@ -19,16 +19,22 @@ git submodule update --init --recursive
 
 ### START ####
 printf "${RED}Install Script: ShiftNrg's Substrate Node\n"
-printf "Intstalling prerquisites...\n"
-curl https://getsubstrate.io -sSf | bash -s -- --fast
+printf "Installing prequisites...\n"
+curl https://sh.rustup.rs/ -sSf | sh -s -- -y
+sudo apt install -y make clang libclang-dev pkg-config libssl-dev cmake gcc build-essential
 
 printf "Initialize WebAssembly build env...\n"
 source ~/.cargo/env
 # Update Rust
 rustup update nightly
 rustup update stable
+rustup install nightly-2020-10-06
+rustup default nightly-2020-10-06
 # Add Wasm target
-rustup target add wasm32-unknown-unknown --toolchain nightly
+rustup target add wasm32-unknown-unknown --toolchain nightly-2020-10-06-x86_64-unknown-linux-gnu
+# Install subkey
+printf "This may take 10+ minutes: Compiling subkey...\n"
+cargo install --force subkey --git https://github.com/paritytech/substrate --version 2.0.0 --locked
 
 printf "This may take 20+ minutes: Compiling ShiftNrg Substrate Code...\n"
 cd shift-substrate-core/
@@ -59,5 +65,6 @@ printf "Install node_modules for front-end app...\n"
 # cd substrate-front-end/
 # yarn install
 
+source ~/.cargo/env
 printf "${YELLOW}Proceed to launch \`./generateKeys.sh\`\n"
 exit 0

@@ -76,7 +76,7 @@ useDocker() {
 
         printf "Generating Granpa Keys...\n"
         #read -p 'Paste Mnemoic: ' mnemonic
-        ED25519=$(docker run parity/subkey:2.0.0-rc6 inspect-key --scheme Ed25519 --output-type Json "$MNEMONIC")
+        ED25519=$(docker run parity/subkey:2.0.0-rc6 inspect --scheme Ed25519 --output-type Json "$MNEMONIC")
         echo $ED25519 | jq
 
         ED_PUB_KEY=$(jq -r '.publicKey' <<< $ED25519)
@@ -97,11 +97,10 @@ useDocker() {
 useSubkey() {
     if which subkey > /dev/null
         then
-            echo "Subkey is installed...Will continue"
+            echo "Subkey is installed.. Will continue"
         else
-            echo "Please install subkey and run again"
-            echo "'cargo install --force --git https://github.com/paritytech/substrate subkey'"
-            exit 1
+            echo "Installing subkey.. This may take a while"
+            cargo install --force subkey --git https://github.com/paritytech/substrate --version 2.0.0 --locked
     fi
 
     if [ "$NODE_CHOICE" == "f" ] || [ -z "$NODE_CHOICE" ]; then
@@ -125,7 +124,7 @@ useSubkey() {
 
         printf "Generating Granpa Keys (ED25519)\n"
         # read -p 'Paste Mnemoic: ' mnemonic
-        ED25519=$(subkey inspect-key --scheme Ed25519 --output-type Json "$MNEMONIC")
+        ED25519=$(subkey inspect --scheme Ed25519 --output-type Json "$MNEMONIC")
         echo $ED25519 | jq
 
         ED_PUB_KEY=$(jq -r '.publicKey' <<< $ED25519)
