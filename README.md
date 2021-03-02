@@ -173,6 +173,13 @@ sudo systemctl restart shift-substrate-validator.service
 ./restart.sh
 ```
 
+#### Optional: bootstrap your validator node
+
+Run the following script to bootstrap your validator to block 2,391,176 in several minutes:
+```
+./validatorBootstrap.sh
+```
+
 # Notes
 * Allow port `30333` through your firewall if you haven't already. This is the default p2p port for nodes to communicate with each other
   * `sudo ufw allow 30333 && sudo ufw reload`
