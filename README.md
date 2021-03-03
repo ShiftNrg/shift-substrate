@@ -8,90 +8,27 @@ ShiftNrg's Substrate blockchain source code
 * Keys generated during this phase should not be used on any mainnets! 
 
 ## Installation Steps
-These steps are currently working for both Ubuntu 18.04 and 20.04 versions.
+If you are setting up a fresh VPS, please first follow [this server setup guide below](https://github.com/Bx64/shift-substrate/Server-setup-guide) before continuing.
 
-### Purchase a VPS from your favourite provider
+The following steps are currently working for both Ubuntu 18.04 and 20.04 versions.
 
-* Minimum of 2 cores/4GB RAM/40G SSD space (more never hurts);
-* Ubuntu 20.04 as operating system (or use 18.04 if preferred);
-* Add your SSH-key in case you use those (recommended for security).
-
-### Add swap space & set swappiness
-
-Run the following commands in sequence:
-```
-fallocate -l 3G /swapfile
-
-chmod 600 /swapfile
-
-mkswap /swapfile
-
-swapon /swapfile
-
-echo '/swapfile none swap sw 0 0' >> /etc/fstab
-
-echo 'vm.swappiness=20' >> /etc/sysctl.conf
-
-sysctl vm.swappiness=20
-
-tune2fs -m 1 /dev/sda1
-```
-
-### Secure your SSH access 
-
-Open the SSH-configuration with the following command:
-```
-nano /etc/ssh/sshd_config
-```
-Find and change the following settings to (pick a new port for XXXXX, or leave as 22).
-If you do not use [SSH keys](https://www.ssh.com/ssh/key/) to login, you can skip changing three of the settings.
-Using SSH keys is recommended over using username & password, for security purposes.
-```
-Port XXXXX                                                 # not mandatory, but advised to change
-
-LoginGraceTime 30s
-
-PermitRootLogin no
-
-MaxAuthTries 2
-
-MaxSessions 2
-
-PubkeyAuthentication yes                                   # only if you use SSH-keys
-
-AuthorizedKeysFile     .ssh/authorized_keys                # only if you use SSH-keys
-
-PasswordAuthentication no                                  # only if you use SSH-keys
-
-PermitEmptyPasswords no
-
-X11Forwarding no
-
-MaxStartups 2
-```
-Restart SSH-service with the following command:
-```
-service ssh restart
-```
 
 ### Update firewall settings
 
-Run the following commands in sequence:
+Run the following commands in sequence to allow the P2P port for your node:
 ```
-ufw allow XXXXX/tcp                                        # only if changed in SSH settings
-
 ufw allow 30333
-
-ufw default deny incoming
 
 ufw enable
 
 ufw reload
 ```
+Press y when asked to enable firewall.
+
 
 ### Add sudo user
 
-Run the following commands in sequence:
+Run the following commands in sequence to create your new user:
 ```
 adduser shift
 
@@ -105,14 +42,6 @@ shift     ALL=(ALL) NOPASSWD:ALL
 ```  
 Use [CTRL+X] [Y] to quit
 
-### If using [SSH-keys](https://www.ssh.com/ssh/key/): copy .ssh folder to sudo user & set ownership
-
-Run the following commands in sequence (skip if you do not use SSH-keys):
-```
-cp -rf .ssh /home/shift/.ssh                               # only if you use SSH-keys
-
-chown -R shift:shift /home/shift/.ssh                      # only if you use SSH-keys
-```
 
 ### Update & install packages with sudo-user
 
@@ -130,7 +59,7 @@ sudo apt update -y && sudo apt upgrade -y && sudo apt dist-upgrade -y && sudo ap
 
 Clone this repository and enter the directiory with the following command: 
 ```
-git clone https://github.com/Bx64/shift-substrate && cd shift-substrate
+git clone https://github.com/ShiftNrg/shift-substrate && cd shift-substrate
 ```
 Run the install script with the following command (this can take up to 15-45 minutes, depending on your VPS's specifications):
 ```
@@ -206,7 +135,123 @@ Run the following script to bootstrap your validator to block 2,391,176 in sever
 * Install Docker `./dockerInstall.sh` or already have subkey installed & compiled (takes forever!)
 * Run `./generateKeys.sh`. Save the output of this command. Complete step 4 listed under `Validator Step Only!`
 
-## Recommend VPS Specs
+
+# Server setup guide
+
+## Purchase a VPS from your favourite provider
+
+* Minimum of 2 cores/4GB RAM/40G SSD space (more never hurts);
+* Ubuntu 20.04 as operating system (or use 18.04 if preferred);
+* Add your SSH-key in case you use those (recommended for security);
+* Recommended specifications with sample compile times can be found below this section.
+
+
+### Add swap space & set swappiness
+
+Run the following commands in sequence:
+```
+fallocate -l 3G /swapfile
+
+chmod 600 /swapfile
+
+mkswap /swapfile
+
+swapon /swapfile
+
+echo '/swapfile none swap sw 0 0' >> /etc/fstab
+
+echo 'vm.swappiness=20' >> /etc/sysctl.conf
+
+sysctl vm.swappiness=20
+
+tune2fs -m 1 /dev/sda1
+```
+
+
+### Secure your SSH access 
+
+Open the SSH-configuration with the following command:
+```
+nano /etc/ssh/sshd_config
+```
+Find and change the following settings to (pick a new port for XXXXX, or leave as 22).
+If you do not use [SSH keys](https://www.ssh.com/ssh/key/) to login, you can skip changing three of the settings.
+Using SSH keys is recommended over using username & password, for security purposes.
+```
+Port XXXXX                                                 # not mandatory, but advised to change
+
+LoginGraceTime 30s
+
+PermitRootLogin no
+
+MaxAuthTries 2
+
+MaxSessions 2
+
+PubkeyAuthentication yes                                   # only if you use SSH-keys
+
+AuthorizedKeysFile     .ssh/authorized_keys                # only if you use SSH-keys
+
+PasswordAuthentication no                                  # only if you use SSH-keys
+
+PermitEmptyPasswords no
+
+X11Forwarding no
+
+MaxStartups 2
+```
+Restart SSH-service with the following command:
+```
+service ssh restart
+```
+
+
+### Update firewall settings
+
+Run the following commands in sequence:
+```
+ufw allow XXXXX/tcp                                        # only if changed in SSH settings
+
+ufw default deny incoming
+
+ufw enable
+
+ufw reload
+```
+
+
+### Add sudo user
+
+Run the following commands in sequence:
+```
+adduser shift
+
+usermod -aG sudo shift
+
+visudo
+```
+Add this line to the bottom of the file: 
+```
+shift     ALL=(ALL) NOPASSWD:ALL
+```  
+Use [CTRL+X] [Y] to quit
+
+
+### If using [SSH-keys](https://www.ssh.com/ssh/key/): copy .ssh folder to sudo user & set ownership
+
+Run the following commands in sequence (skip if you do not use SSH-keys):
+```
+cp -rf .ssh /home/shift/.ssh                               # only if you use SSH-keys
+
+chown -R shift:shift /home/shift/.ssh                      # only if you use SSH-keys
+```
+
+### Congratulations, your server is setup!
+
+Continue with the [node installation steps](https://github.com/Bx64/shift-substrate/Installation-Steps).
+
+
+### Recommend VPS Specs
 Minimum amount of RAM required: 2 GB
 * 2 CPU core
 * 2 GB RAM
@@ -221,7 +266,7 @@ Minimum amount of RAM required: 2 GB
   * [Digital Ocean](https://m.do.co/c/2e7929d058d5) 
     * $15/mo - 2c/2GB 60GB SSD
 
-## Sample Compile Times
+### Sample Compile Times
 This is from a fresh Ubuntu 18.04 instance
 
 * DO - 2c/2GB/60GB SSD - `Finished release [optimized] target(s) in 43m 17s`
