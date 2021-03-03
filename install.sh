@@ -27,13 +27,13 @@ fi
 ## Check if we are ok with dispace
 MINSPACE=`df -k --output=avail "$PWD" | tail -n1`
 
-# We can adjust requirement here. ex 20GB
+## We can adjust requirement here. ex 20GB
 if [[ $MINSPACE -lt 21474825 ]]; then
     printf "${RED}Not enough free space in $PWD to install Substrade Node.\n"
     exit 1
 fi
 
-# Check if ntp is installed running
+## Check if ntp is installed running
 if sudo pgrep -x "ntpd" > /dev/null; then
     printf "NTP is running"
 else
@@ -68,14 +68,14 @@ sudo apt install -y make clang libclang-dev pkg-config libssl-dev cmake gcc buil
 
 printf "Initialize WebAssembly build env...\n"
 source ~/.cargo/env
-# Update Rust
+## Update Rust
 rustup update nightly
 rustup update stable
 rustup install nightly-2020-10-06
 rustup default nightly-2020-10-06
-# Add Wasm target
-rustup target add wasm32-unknown-unknown --toolchain nightly-2020-10-06-x86_64-unknown-linux-gnu
-# Install subkey
+## Add Wasm target
+rustup target add wasm32-unknown-unknown --toolchain nightly-2020-10-06
+## Install subkey
 printf "This may take 10+ minutes: Compiling subkey...\n"
 cargo install --force subkey --git https://github.com/paritytech/substrate --version 2.0.0 --locked
 
@@ -96,7 +96,7 @@ if which docker > /dev/null
 fi
 
 printf "Install node_modules for front-end app...\n"
-# installNode
+## installNode
 # npm install -g yarn
 # cd substrate-front-end/
 # yarn install
