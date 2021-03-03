@@ -17,11 +17,54 @@ source ./scripts/node-install.sh
 ## Pull down submodules code
 git submodule update --init --recursive
 
+
+## Check if running as root
+if [[ $EUID -eq 0 ]]; then
+    printf "${RED}This script should not be run using sudo or as root. Please run it as a regular user.\n"
+    exit 1
+fi
+
+## Check if we are ok with dispace
+MINSPACE=`df -k --output=avail "$PWD" | tail -n1`
+
+# We can adjust requirement here. ex 20GB
+if [[ $MINSPACE -lt 21474825 ]]; then
+    printf "${RED}Not enough free space in $PWD to install Substrade Node.\n"
+    exit 1
+fi
+
+# Check if ntp is installed running
+if sudo pgrep -x "ntpd" > /dev/null; then
+    printf "NTP is running"
+else
+    echo "${RED} NTP is not running"
+       
+    read -r -n 1 -p "Would like to install NTP? (y/n): " REPLY
+    
+    if [[ "$REPLY" =~ ^[Yy]$ ]]; then
+        printf "Installing NTP...\n"
+        sudo apt-get install ntp ntpdate -yyq
+        sudo service ntp stop
+        sudo ntpdate pool.ntp.org
+        sudo service ntp start
+               
+        if sudo pgrep -x "ntpd" > /dev/null; then
+            printf "NTP is running\n"
+        else
+            printf "${RED}Problem starting NTP service Please check /etc/ntp.conf and correct any issues."
+            exit 0
+        fi
+    else
+        printf "${RED}Substrade node requires NTP, exiting."
+        exit 0
+    fi
+fi
+
 ### START ####
 printf "${RED}Install Script: ShiftNrg's Substrate Node\n"
 printf "Installing prequisites...\n"
 curl https://sh.rustup.rs/ -sSf | sh -s -- -y
-sudo apt install -y make clang libclang-dev pkg-config libssl-dev cmake gcc build-essential
+sudo apt install -y make clang libclang-dev pkg-config libssl-dev cmake gcc build-essential jq curl
 
 printf "Initialize WebAssembly build env...\n"
 source ~/.cargo/env
@@ -41,16 +84,9 @@ cd shift-substrate-core/
 cargo build --release
 cd ..
 
-if which jq > /dev/null
-    then
-        :
-    else
-        sudo apt install -y jq
-fi
-
 if which docker > /dev/null
     then
-        echo "Docker is already installed, skipping"
+        printf "Docker is already installed, skipping\n"
     else
         echo -n "Would you like to install docker? ([y]/n) "
             read DOCKER_CHOICE
