@@ -7,8 +7,10 @@ ShiftNrg's Substrate blockchain source code
 * This code has not launched a mainnet version!
 * Keys generated during this phase should not be used on any mainnets! 
 
-## Installation Steps
-If you are setting up a fresh VPS, please first follow [this server setup guide below](https://github.com/Bx64/shift-substrate/Server-setup-guide) before continuing.
+----
+
+# Installation Steps
+If you are setting up a fresh VPS, please first follow [this server setup guide below](https://github.com/ShiftNrg/shift-substrate#server-setup-guide) before continuing.
 
 The following steps are currently working for both Ubuntu 18.04 and 20.04 versions.
 
@@ -54,7 +56,7 @@ Update and install packages by running the following command:
 sudo apt update -y && sudo apt upgrade -y && sudo apt dist-upgrade -y && sudo apt install -y git curl
 ```
 
-### Node installation
+## Node installation
 #### Do not install as `root`. Use the newly created sudo-user called `shift`!
 
 Clone this repository and enter the directiory with the following command: 
@@ -109,6 +111,8 @@ Run the following script to bootstrap your validator to block 2,391,176 in sever
 ./validatorBootstrap.sh
 ```
 
+----
+
 # Notes
 * Allow port `30333` through your firewall if you haven't already. This is the default p2p port for nodes to communicate with each other
   * `sudo ufw allow 30333 && sudo ufw reload`
@@ -135,6 +139,7 @@ Run the following script to bootstrap your validator to block 2,391,176 in sever
 * Install Docker `./dockerInstall.sh` or already have subkey installed & compiled (takes forever!)
 * Run `./generateKeys.sh`. Save the output of this command. Complete step 4 listed under `Validator Step Only!`
 
+----
 
 # Server setup guide
 
@@ -143,7 +148,7 @@ Run the following script to bootstrap your validator to block 2,391,176 in sever
 * Minimum of 2 cores/4GB RAM/40G SSD space (more never hurts);
 * Ubuntu 20.04 as operating system (or use 18.04 if preferred);
 * Add your SSH-key in case you use those (recommended for security);
-* Recommended specifications with sample compile times can be found below this section.
+* Recommended specifications with sample compile times can be found [below this section](https://github.com/ShiftNrg/shift-substrate#recommend-vps-specs).
 
 
 ### Add swap space & set swappiness
@@ -248,8 +253,9 @@ chown -R shift:shift /home/shift/.ssh                      # only if you use SSH
 
 ### Congratulations, your server is setup!
 
-Continue with the [node installation steps](https://github.com/Bx64/shift-substrate/Installation-Steps).
+Continue with the [node installation steps](https://github.com/ShiftNrg/shift-substrate#installation-steps).
 
+----
 
 ### Recommend VPS Specs
 Minimum amount of RAM required: 2 GB
