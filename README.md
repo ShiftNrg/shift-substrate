@@ -2,6 +2,7 @@
 ShiftNrg's Substrate blockchain source code
 
 ### [Wiki](https://github.com/ShiftNrg/shift-substrate/wiki)
+Please visit our Wiki page to find useful links, resources, terms to learn and more!
 
 ## Important Information
 * This code has not launched a mainnet version!
