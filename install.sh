@@ -17,29 +17,28 @@ source ./scripts/node-install.sh
 ## Pull down submodules code
 git submodule update --init --recursive
 
-
-## Check if running as root
+## Check if script is not ran as root
 if [[ $EUID -eq 0 ]]; then
-    printf "${RED}This script should not be run using sudo or as root. Please run it as a regular user.\n"
+    printf "${RED}This script should not be run using sudo or as root. Please run it without sudo/root privileges.\n"
     exit 1
 fi
 
-## Check if we are ok with dispace
+## Check if we are OK with available disk space
 MINSPACE=`df -k --output=avail "$PWD" | tail -n1`
 
-## We can adjust requirement here. ex 20GB
-if [[ $MINSPACE -lt 21474825 ]]; then
-    printf "${RED}Not enough free space in $PWD to install Substrade Node.\n"
+### We can adjust requirement here, currently ~18GB
+if [[ $MINSPACE -lt 18432448 ]]; then
+    printf "${RED}Not enough free space in $PWD to install Substrate Node.\n"
     exit 1
 fi
 
-## Check if ntp is installed running
+## Check if NTP is installed and running
 if sudo pgrep -x "ntpd" > /dev/null; then
     printf "NTP is running"
 else
-    echo "${RED} NTP is not running"
+    printf "${RED} NTP is not running"
        
-    read -r -n 1 -p "Would like to install NTP? (y/n): " REPLY
+    read -r -n 1 -p "Would like to install NTP? ([y]/n): " REPLY
     
     if [[ "$REPLY" =~ ^[Yy]$ ]]; then
         printf "Installing NTP...\n"
@@ -51,7 +50,7 @@ else
         if sudo pgrep -x "ntpd" > /dev/null; then
             printf "NTP is running\n"
         else
-            printf "${RED}Problem starting NTP service Please check /etc/ntp.conf and correct any issues."
+            printf "${RED}Problem starting NTP service. Please check /etc/ntp.conf and correct any issues."
             exit 0
         fi
     else
