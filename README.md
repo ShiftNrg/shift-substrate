@@ -143,7 +143,7 @@ Run the following script to bootstrap your validator to block 2,391,176 in sever
 
 # Server setup guide
 
-## Purchase a VPS from your favourite provider
+### Purchase a VPS from your favourite provider
 
 * Minimum of 2 cores/4GB RAM/40G SSD space (more never hurts);
 * Ubuntu 20.04 as operating system (or use 18.04 if preferred);
