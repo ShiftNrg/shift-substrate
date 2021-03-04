@@ -27,12 +27,13 @@ source ~/.cargo/env
 # Update Rust
 rustup update nightly
 rustup update stable
+rustup install nightly-2020-10-06
 # Add Wasm target
-rustup target add wasm32-unknown-unknown --toolchain nightly
+rustup target add wasm32-unknown-unknown --toolchain nightly-2020-10-06
 
 printf "This may take 20+ minutes: Compiling ShiftNrg Substrate Code...\n"
 cd shift-substrate-core/
-cargo build --release
+WASM_BUILD_TOOLCHAIN=nightly-2020-10-06 cargo build --release
 cd ..
 
 if which jq > /dev/null
