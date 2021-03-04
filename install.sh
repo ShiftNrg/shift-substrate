@@ -78,9 +78,10 @@ rustup target add wasm32-unknown-unknown --toolchain nightly-2020-10-06
 printf "This may take 10+ minutes: Compiling subkey...\n"
 cargo install --force subkey --git https://github.com/paritytech/substrate --version 2.0.0 --locked
 
+
 printf "This may take 20+ minutes: Compiling ShiftNrg Substrate Code...\n"
 cd shift-substrate-core/
-cargo build --release
+WASM_BUILD_TOOLCHAIN=nightly-2020-10-06 cargo build --release
 cd ..
 
 if which docker > /dev/null

@@ -65,7 +65,7 @@ useDocker() {
                 SR25519=$(docker run parity/subkey:2.0.0-rc6 generate --scheme Sr25519 --output-type Json)
             else
                 printf "Generating Aura Keys from existing mnemonic\n"
-                SR25519=$(docker run parity/subkey:2.0.0-rc6 inspect-key --scheme Sr25519 --output-type Json "$OWN_MNEMONIC")
+                SR25519=$(docker run parity/subkey:2.0.0-rc6 inspect --scheme Sr25519 --output-type Json "$OWN_MNEMONIC")
         fi
 
         echo $SR25519 | jq
@@ -113,7 +113,7 @@ useSubkey() {
                 SR25519=$(subkey generate --scheme Sr25519 --output-type Json)
             else
                 printf "Generating Aura Keys from existing mnemonic\n"
-                SR25519=$(subkey inspect-key --scheme Sr25519 --output-type Json "$OWN_MNEMONIC")
+                SR25519=$(subkey inspect --scheme Sr25519 --output-type Json "$OWN_MNEMONIC")
         fi
 
         echo $SR25519 | jq
