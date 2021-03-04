@@ -17,35 +17,76 @@ source ./scripts/node-install.sh
 ## Pull down submodules code
 git submodule update --init --recursive
 
+## Check if script is not ran as root
+if [[ $EUID -eq 0 ]]; then
+    printf "${RED}This script should not be run using sudo or as root. Please run it without sudo/root privileges.\n"
+    exit 1
+fi
+
+## Check if we are OK with available disk space
+MINSPACE=`df -k --output=avail "$PWD" | tail -n1`
+
+### We can adjust requirement here, currently ~18GB
+if [[ $MINSPACE -lt 18432448 ]]; then
+    printf "${RED}Not enough free space in $PWD to install Substrate Node.\n"
+    exit 1
+fi
+
+## Check if NTP is installed and running
+if sudo pgrep -x "ntpd" > /dev/null; then
+    printf "NTP is running"
+else
+    printf "${RED} NTP is not running"
+       
+    read -r -n 1 -p "Would like to install NTP? ([y]/n): " REPLY
+    
+    if [[ "$REPLY" =~ ^[Yy]$ ]]; then
+        printf "Installing NTP...\n"
+        sudo apt-get install ntp ntpdate -yyq
+        sudo service ntp stop
+        sudo ntpdate pool.ntp.org
+        sudo service ntp start
+               
+        if sudo pgrep -x "ntpd" > /dev/null; then
+            printf "NTP is running\n"
+        else
+            printf "${RED}Problem starting NTP service. Please check /etc/ntp.conf and correct any issues."
+            exit 0
+        fi
+    else
+        printf "${RED}Substrade node requires NTP, exiting."
+        exit 0
+    fi
+fi
+
 ### START ####
 printf "${RED}Install Script: ShiftNrg's Substrate Node\n"
-printf "Intstalling prerquisites...\n"
-curl https://getsubstrate.io -sSf | bash -s -- --fast
+printf "Installing prequisites...\n"
+curl https://sh.rustup.rs/ -sSf | sh -s -- -y
+sudo apt install -y make clang libclang-dev pkg-config libssl-dev cmake gcc build-essential jq curl
 
 printf "Initialize WebAssembly build env...\n"
 source ~/.cargo/env
-# Update Rust
+## Update Rust
 rustup update nightly
 rustup update stable
 rustup install nightly-2020-10-06
-# Add Wasm target
+rustup default nightly-2020-10-06
+## Add Wasm target
 rustup target add wasm32-unknown-unknown --toolchain nightly-2020-10-06
+## Install subkey
+printf "This may take 10+ minutes: Compiling subkey...\n"
+cargo install --force subkey --git https://github.com/paritytech/substrate --version 2.0.0 --locked
+
 
 printf "This may take 20+ minutes: Compiling ShiftNrg Substrate Code...\n"
 cd shift-substrate-core/
 WASM_BUILD_TOOLCHAIN=nightly-2020-10-06 cargo build --release
 cd ..
 
-if which jq > /dev/null
-    then
-        :
-    else
-        sudo apt install -y jq
-fi
-
 if which docker > /dev/null
     then
-        echo "Docker is already installed, skipping"
+        printf "Docker is already installed, skipping\n"
     else
         echo -n "Would you like to install docker? ([y]/n) "
             read DOCKER_CHOICE
@@ -55,7 +96,7 @@ if which docker > /dev/null
 fi
 
 printf "Install node_modules for front-end app...\n"
-# installNode
+## installNode
 # npm install -g yarn
 # cd substrate-front-end/
 # yarn install

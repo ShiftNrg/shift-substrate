@@ -97,11 +97,10 @@ useDocker() {
 useSubkey() {
     if which subkey > /dev/null
         then
-            echo "Subkey is installed...Will continue"
+            echo "Subkey is installed.. Will continue"
         else
-            echo "Please install subkey and run again"
-            echo "'cargo install --force --git https://github.com/paritytech/substrate subkey'"
-            exit 1
+            echo "Installing subkey.. This may take a while"
+            cargo install --force subkey --git https://github.com/paritytech/substrate --version 2.0.0 --locked
     fi
 
     if [ "$NODE_CHOICE" == "f" ] || [ -z "$NODE_CHOICE" ]; then
@@ -156,6 +155,9 @@ useSubkey() {
         echo "Your NEW public node peer id is: ${PEER_ID}"
     fi
 }
+
+# Source subkey installation
+source ~/.cargo/env
 
 # User questions for key configuration
 echo -n "Please chooose: ShiftNrg mainnet (m) or testnet (t)? ([m]/t): "
