@@ -112,6 +112,13 @@ Run the following script to bootstrap your validator to block 2,391,176 in sever
 ./validatorBootstrap.sh
 ```
 
+#### Optional: bootstrap your full node
+
+Run the following script to bootstrap your full node to block 2,459,607 in several minutes:
+```
+./fullnodeBootstrap.sh
+```
+
 ----
 
 # Notes
