@@ -109,7 +109,18 @@ sudo systemctl restart shift-substrate-validator.service
 
 Run the following script to bootstrap your validator to block 2,391,176 in several minutes:
 ```
+chmod +x validatorBootstrap.sh
+
 ./validatorBootstrap.sh
+```
+
+#### Optional: bootstrap your full node
+
+Run the following script to bootstrap your validator to block 2,391,176 in several minutes:
+```
+chmod +x fullnodeBootstrap.sh
+
+./fullnodeBootstrap.sh
 ```
 
 ----
